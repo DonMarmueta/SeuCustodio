@@ -1,0 +1,29 @@
+# Núcleo de captura e custódia
+requests>=2.31.0
+playwright>=1.44.0
+beautifulsoup4>=4.12.0
+tzdata>=2024.1
+
+# Geração de QR code para o laudo + análise EXIF (fallback) de imagens
+qrcode[pil]>=7.4.2
+Pillow>=10.0.0
+pytesseract>=0.3.10
+
+# OCR opcional: além do pytesseract, instale o Tesseract no sistema.
+#   Windows: https://github.com/UB-Mannheim/tesseract/wiki
+#   Linux: apt install tesseract-ocr tesseract-ocr-por
+
+# Análise de mídia (opcional, recomendado): instale o ExifTool no sistema
+#   Windows: https://exiftool.org  | Linux: apt install libimage-exiftool-perl
+# Se presente no PATH, é usado automaticamente; caso contrário, usa-se o Pillow.
+
+# Camada SaaS (Fase 2)
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+jinja2>=3.1.0
+python-multipart>=0.0.9
+PyJWT>=2.8.0
+SQLAlchemy>=2.0.0
+
+# (Fase 5) carimbo de tempo RFC 3161 — opcional
+# rfc3161ng>=2.1.3

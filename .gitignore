@@ -1,0 +1,25 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Evidências coletadas (dados sensíveis — não versionar)
+evidencias/
+
+# Sessões autenticadas do operador (cookies/tokens — nunca versionar)
+sessoes/
+
+# Configurações locais, tokens e bancos de teste
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+provasocial.db
+
+# Artefatos de IDE
+.vscode/
+.idea/
