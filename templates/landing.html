@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<section class="hero">
+  <h1>Transforme um post em <span>prova auditável</span></h1>
+  <p class="lead">
+    Gere uma captura auditável de uma publicação em rede social por R$ {{ valor }}.
+    O sistema preserva a página, captura evidências visuais, extrai metadados públicos
+    disponíveis e emite um laudo com hash, cadeia de custódia e verificação pública.
+    O documento gerado serve de base para
+    <strong>Produção Antecipada de Provas (PAP)</strong> e pedidos de quebra de sigilo.
+    Como complemento, o usuário pode solicitar as <strong>Instruções à PAP Seu Custódio</strong>
+    ou uma <strong>Consultoria Técnica Jurídica Individual</strong>.
+  </p>
+  <div class="cta">
+    <a href="/registro" class="btn">Coletar agora — R$ {{ valor }}</a>
+    <a href="/verificar" class="btn-secundario">Verificar uma prova</a>
+  </div>
+</section>
+
+<section class="cards">
+  <div class="card">
+    <h3>1. Cole a URL</h3>
+    <p>Informe o link da publicação ou perfil. O servidor acessa de forma independente.</p>
+  </div>
+  <div class="card">
+    <h3>2. Pague via Pix</h3>
+    <p>R$ {{ valor }} por coleta. A captura só inicia após a confirmação do pagamento.</p>
+  </div>
+  <div class="card">
+    <h3>3. Baixe o laudo</h3>
+    <p>HTML cru + screenshot + PDF + metadados públicos + hashes + cadeia de custódia + QR.</p>
+  </div>
+</section>
+
+<section class="destaque">
+  <h2>Por que vale como prova</h2>
+  <ul>
+    <li><strong>Captura no servidor:</strong> o conteúdo não é fornecido por você — é coletado de forma independente.</li>
+    <li><strong>Hash SHA-256:</strong> qualquer alteração de 1 byte quebra a verificação.</li>
+    <li><strong>Cadeia de custódia encadeada:</strong> trilha verificável conforme o CPP.</li>
+    <li><strong>Portal público de verificação:</strong> juiz, advogado ou perito confere a integridade a qualquer momento.</li>
+    <li><strong>Comentários:</strong> quando disponíveis publicamente, podem ser preservados como recurso auxiliar best-effort.</li>
+    <li><strong>Plus PAP:</strong> organização inicial do contexto e dos artefatos para apoiar a preparação de PAP, sem substituir advogado.</li>
+  </ul>
+</section>
+{% endblock %}

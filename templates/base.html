@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{% block titulo %}ProvaSocial — Extract{% endblock %}</title>
+  <link rel="stylesheet" href="/static/styles.css"/>
+</head>
+<body>
+<header class="topbar">
+  <a class="logo" href="/">
+    <img src="/static/if.png" alt="CyberMarmouts" class="logo-img"/>
+    <span class="logo-text">Prova<span>Social</span></span>
+  </a>
+  <nav>
+    <a href="/verificar">Verificar prova</a>
+    {% if usuario %}
+      <a href="/painel">Painel</a>
+      <a href="/coletar" class="btn-sm">Nova captura</a>
+      <a href="/logout">Sair</a>
+    {% else %}
+      <a href="/login">Entrar</a>
+      <a href="/registro" class="btn-sm">Criar conta</a>
+    {% endif %}
+  </nav>
+</header>
+
+{% if modo_simulado %}
+<div class="aviso-sim">MODO SIMULADO — pagamentos não são cobrados de verdade (sem MP_ACCESS_TOKEN configurado).</div>
+{% endif %}
+
+<main class="conteudo">
+  {% block conteudo %}{% endblock %}
+</main>
+
+<footer class="rodape">
+  <p>ProvaSocial — Extract · CyberMarmouts Inteligência Forense</p>
+  <p class="muted">Prova auditável para PAP e quebra de sigilo. Não realiza identificação civil (depende de ordem judicial — Marco Civil, arts. 22 e 23).</p>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block titulo %}Coleta #{{ coleta.id }} — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="painel">
+  <h1>Coleta #{{ coleta.id }}</h1>
+  <p><span class="badge badge-{{ coleta.status }}">{{ coleta.status }}</span></p>
+  <p class="trunc muted">{{ coleta.url_alvo }}</p>
+  <p class="muted">Tipo de captura: {{ coleta.nivel }}</p>
+  {% if coleta.comentario_alvo %}
+    <p class="muted">Comentário alvo informado: <span class="mono">{{ coleta.comentario_alvo }}</span></p>
+  {% endif %}
+
+  {% if coleta.status in ["pago", "capturando"] %}
+    <div class="processando" id="processando">
+      <p>Capturando a evidência... esta página atualiza automaticamente.</p>
+    </div>
+  {% elif coleta.status == "erro" %}
+    <div class="erro">Erro na coleta: {{ coleta.erro_msg }}</div>
+  {% elif coleta.status == "concluido" %}
+    <div class="ok">
+      Coleta concluída. Código de verificação:
+      <strong class="mono">{{ coleta.codigo_verificacao }}</strong>
+      — <a href="/verificar/{{ coleta.codigo_verificacao }}">verificar publicamente</a>
+    </div>
+
+    <h2>Metadados</h2>
+    <table class="tabela">
+      {% for k, v in metadados.items() %}
+        {% if v and k not in ["open_graph", "json_ld", "twitter_card", "midias_analisadas", "nota_identificacao"] and v is string %}
+          <tr><th>{{ k }}</th><td class="trunc">{{ v }}</td></tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+
+    {% if identificacao_limitada %}
+      <div class="assessoria-card">
+        <h2>Prepare o caso para PAP</h2>
+        <p>
+          A coleta preservou URL, username, conteúdo, captura visual, hashes e cadeia de custódia.
+          Porém, nesta plataforma, o identificador numérico interno do usuário não foi exposto
+          por captura pública. Isso é esperado em Instagram/Facebook e não invalida a prova.
+        </p>
+        <p class="muted">{{ metadados.nota_identificacao }}</p>
+
+        <form method="post" action="/coleta/{{ coleta.id }}/assessoria" class="assessoria-form">
+          <label>Serviço
+            <select name="tipo">
+              {% for chave, servico in servicos_assessoria.items() %}
+                <option value="{{ chave }}">{{ servico.titulo }} — {{ servico.preco }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>Contato preferencial
+            <input type="text" name="contato" placeholder="WhatsApp, e-mail ou telefone"/>
+          </label>
+          <label>Observações
+            <textarea name="observacao" rows="3" placeholder="Ex.: preciso de instruções para PAP contra este perfil..."></textarea>
+          </label>
+          <button class="btn" type="submit">Solicitar Instruções à PAP Seu Custódio</button>
+        </form>
+      </div>
+    {% else %}
+      <div class="assessoria-card compacto">
+        <h2>Quer transformar a coleta em preparação para PAP?</h2>
+        <p>
+          Você pode solicitar as Instruções à PAP Seu Custódio ou uma Consultoria Técnica Jurídica
+          Individual para análise humana do caso.
+        </p>
+        <form method="post" action="/coleta/{{ coleta.id }}/assessoria" class="assessoria-form">
+          <input type="hidden" name="tipo" value="assessoria"/>
+          <label>Contato
+            <input type="text" name="contato" placeholder="WhatsApp, e-mail ou telefone"/>
+          </label>
+          <button class="btn-secundario" type="submit">Solicitar Instruções à PAP</button>
+        </form>
+      </div>
+    {% endif %}
+
+    {% if upsells %}
+      <h2>Produtos complementares solicitados</h2>
+      <table class="tabela">
+        <tr><th>Tipo</th><th>Status</th><th>Contato</th></tr>
+        {% for u in upsells %}
+          <tr><td>{{ u.tipo }}</td><td>{{ u.status }}</td><td>{{ u.contato or "—" }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    <h2>Arquivos da evidência</h2>
+    <ul class="arquivos">
+      {% for a in arquivos %}
+        <li><a href="/coleta/{{ coleta.id }}/download/{{ a }}">{{ a }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+{% if coleta.status in ["pago", "capturando"] %}
+const coletaId = {{ coleta.id }};
+setInterval(async () => {
+  const r = await fetch(`/coleta/${coletaId}/status`);
+  const d = await r.json();
+  if (d.status === "concluido" || d.status === "erro") window.location.reload();
+}, 3000);
+{% endif %}
+</script>
+{% endblock %}

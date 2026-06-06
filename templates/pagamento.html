@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block titulo %}Pagamento — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="form-box">
+  <h1>Pagamento via Pix</h1>
+  <p>Coleta <strong>#{{ coleta.id }}</strong> — {{ coleta.plataforma }}</p>
+  <p class="trunc muted">{{ coleta.url_alvo }}</p>
+
+  {% if coleta.status == "aguardando_pagamento" %}
+    <div class="pix-box">
+      <p class="valor">R$ {{ valor }}</p>
+      {% if pagamento and pagamento.qr_code_base64 %}
+        <img class="qr" src="data:image/png;base64,{{ pagamento.qr_code_base64 }}" alt="QR Pix"/>
+      {% endif %}
+      {% if pagamento and pagamento.qr_code %}
+        <label>Pix copia-e-cola
+          <textarea readonly rows="3">{{ pagamento.qr_code }}</textarea>
+        </label>
+      {% endif %}
+
+      {% if modo_simulado %}
+        <button class="btn" id="btn-simular">Confirmar pagamento (simulado)</button>
+      {% else %}
+        <p class="muted">Após o pagamento, a captura inicia automaticamente. Esta página atualiza sozinha.</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="ok">Pagamento confirmado. <a href="/coleta/{{ coleta.id }}">Ver coleta</a></div>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const coletaId = {{ coleta.id }};
+const simulado = {{ 'true' if modo_simulado else 'false' }};
+
+async function checarStatus() {
+  try {
+    const r = await fetch(`/coleta/${coletaId}/status`);
+    const d = await r.json();
+    if (d.status && d.status !== "aguardando_pagamento") {
+      window.location.href = `/coleta/${coletaId}`;
+    }
+  } catch (e) {}
+}
+
+const btn = document.getElementById("btn-simular");
+if (btn) {
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    btn.textContent = "Processando...";
+    await fetch(`/api/pagamentos/simular-aprovacao/${coletaId}`, { method: "POST" });
+    setTimeout(() => window.location.href = `/coleta/${coletaId}`, 1200);
+  });
+}
+
+if ("{{ coleta.status }}" === "aguardando_pagamento" && !simulado) {
+  setInterval(checarStatus, 4000);
+}
+</script>
+{% endblock %}

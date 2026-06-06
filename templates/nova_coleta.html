@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block titulo %}Nova coleta — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="form-box">
+  <h1>Nova captura</h1>
+  <p class="muted">Cole a URL da publicação ou perfil. Por R$ {{ valor }}, o servidor preserva a evidência de forma independente e gera um laudo auditável.</p>
+  {% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+  <form method="post" action="/coletar">
+    <label>URL do post/perfil
+      <input type="url" name="url" required placeholder="https://x.com/usuario/status/123..."/>
+    </label>
+    <label>Comentário alvo (opcional)
+      <textarea name="comentario_alvo" rows="4" placeholder="Cole um trecho do comentário agressivo/ofensivo para a ferramenta tentar localizar com scroll direcionado."></textarea>
+    </label>
+    <label>Tipo de captura
+      <select name="nivel">
+        <option value="basico">Básica - captura auditável + comentários visíveis</option>
+        <option value="pericial">Pericial/premium - inclui gravação da navegação quando disponível</option>
+      </select>
+    </label>
+    <button class="btn" type="submit">Gerar Pix e continuar</button>
+  </form>
+  <p class="muted">Comentários e mídias vinculadas podem ser preservados quando estiverem disponíveis publicamente. A busca por comentário alvo tenta carregar a página até encontrar o trecho informado, mas não garante comentários apagados, ocultos, filtrados por algoritmo ou bloqueados por login.</p>
+</section>
+{% endblock %}

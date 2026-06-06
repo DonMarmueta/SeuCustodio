@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block titulo %}Criar conta — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="form-box">
+  <h1>Criar conta</h1>
+  {% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+  <form method="post" action="/registro">
+    <label>Nome
+      <input type="text" name="nome" placeholder="Seu nome"/>
+    </label>
+    <label>E-mail
+      <input type="email" name="email" required placeholder="voce@email.com"/>
+    </label>
+    <label>Senha
+      <input type="password" name="senha" required minlength="6"/>
+    </label>
+    <button class="btn" type="submit">Criar conta</button>
+  </form>
+  <p class="muted">Já tem conta? <a href="/login">Entrar</a></p>
+</section>
+{% endblock %}

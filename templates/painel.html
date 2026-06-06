@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block titulo %}Painel — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="painel">
+  <div class="painel-topo">
+    <h1>Suas coletas</h1>
+    <a href="/coletar" class="btn">+ Nova captura — R$ {{ valor }}</a>
+  </div>
+
+  {% if not coletas %}
+    <p class="muted">Você ainda não fez nenhuma coleta. Comece criando uma nova.</p>
+  {% else %}
+  <table class="tabela">
+    <thead>
+      <tr><th>#</th><th>URL</th><th>Plataforma</th><th>Status</th><th>Código</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% for c in coletas %}
+      <tr>
+        <td>{{ c.id }}</td>
+        <td class="trunc">{{ c.url_alvo }}</td>
+        <td>{{ c.plataforma }}</td>
+        <td><span class="badge badge-{{ c.status }}">{{ c.status }}</span></td>
+        <td class="mono">{{ c.codigo_verificacao or "—" }}</td>
+        <td>
+          {% if c.status == "aguardando_pagamento" %}
+            <a href="/pagamento/{{ c.id }}">Pagar</a>
+          {% else %}
+            <a href="/coleta/{{ c.id }}">Ver</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</section>
+{% endblock %}

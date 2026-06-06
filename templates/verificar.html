@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo %}Verificar prova — ProvaSocial{% endblock %}
+{% block conteudo %}
+<section class="form-box">
+  <h1>Verificar integridade da prova</h1>
+  <p class="muted">Informe o código de verificação que consta no laudo (ou no QR code).</p>
+  <form method="get" action="" onsubmit="event.preventDefault(); window.location.href='/verificar/' + document.getElementById('cod').value.trim();">
+    <label>Código de verificação
+      <input type="text" id="cod" value="{{ codigo or '' }}" placeholder="EX.: A1B2C3D4E5F6"/>
+    </label>
+    <button class="btn" type="submit">Verificar</button>
+  </form>
+
+  {% if resultado is defined and resultado is not none %}
+    {% if resultado.integro %}
+      <div class="resultado integro">
+        <h2>✓ ÍNTEGRO</h2>
+        <p>Os artefatos conferem com os hashes registrados e a cadeia de custódia está válida.</p>
+      </div>
+    {% else %}
+      <div class="resultado adulterado">
+        <h2>✗ ADULTERADO</h2>
+        <p>A verificação encontrou divergências:</p>
+        <ul>{% for p in resultado.problemas %}<li>{{ p }}</li>{% endfor %}</ul>
+      </div>
+    {% endif %}
+    <table class="tabela">
+      <tr><th>Coleta</th><td>{{ resultado.coleta_id }}</td></tr>
+      <tr><th>URL alvo</th><td class="trunc">{{ resultado.url_alvo }}</td></tr>
+      <tr><th>Plataforma</th><td>{{ resultado.plataforma }}</td></tr>
+      <tr><th>Coletado em</th><td>{{ resultado.coletado_em }}</td></tr>
+      <tr><th>Artefatos</th><td>{{ resultado.qtd_artefatos }}</td></tr>
+      <tr><th>Hash do manifesto</th><td class="mono trunc">{{ resultado.hash_manifesto }}</td></tr>
+    </table>
+  {% elif codigo %}
+    <div class="erro">Nenhuma prova encontrada para o código informado.</div>
+  {% endif %}
+</section>
+{% endblock %}
