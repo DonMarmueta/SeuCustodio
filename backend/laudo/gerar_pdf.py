@@ -32,8 +32,6 @@ def _logo_base64() -> str | None:
     """Carrega o logo do projeto como data URI para o laudo offline."""
     caminho = RAIZ / "static" / "logo-oficial.png"
     if not caminho.exists():
-        caminho = RAIZ / "static" / "if.png"
-    if not caminho.exists():
         return None
     try:
         return base64.b64encode(caminho.read_bytes()).decode("ascii")

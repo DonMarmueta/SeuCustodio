@@ -2,47 +2,31 @@
 {% block titulo %}Seu Custódio — Prova digital auditável{% endblock %}
 {% block conteudo %}
 <section class="hero">
-  <img src="/static/logo-oficial.png" alt="Seu Custódio" class="hero-logo"/>
-  <h1>Guarde sua <span>prova digital</span></h1>
+  <p class="eyebrow">Antes que apaguem, o Custódio guarda.</p>
+  <h1>Sofreu ofensa, ameaça ou exposição online?</h1>
   <p class="lead">
-    Gere uma captura auditável de uma publicação em rede social por R$ {{ valor }}.
-    O sistema preserva a página, captura evidências visuais, extrai metadados públicos
-    disponíveis e emite um laudo com hash, cadeia de custódia e verificação pública.
-    O documento gerado serve de base para
-    <strong>Produção Antecipada de Provas (PAP)</strong> e pedidos de quebra de sigilo.
-    Como complemento, o usuário pode solicitar as <strong>Instruções à PAP Seu Custódio</strong>
-    ou uma <strong>Consultoria Técnica Jurídica Individual</strong>.
+    Cole o link da publicação. O Seu Custódio preserva a prova antes que ela desapareça
+    e gera um laudo com captura, data, hash, cadeia de custódia e verificação pública.
   </p>
   <div class="cta">
-    <a href="/registro" class="btn">Coletar agora — R$ {{ valor }}</a>
+    <a href="/registro" class="btn">Preservar prova agora — R$ {{ valor }}</a>
     <a href="/verificar" class="btn-secundario">Verificar uma prova</a>
   </div>
-</section>
-
-<section class="passo-a-passo">
-  <div class="passo-copy">
-    <h2>Como o Seu Custódio age</h2>
-    <p>
-      O fluxo foi pensado para quem precisa agir rápido: identificar o abuso, colar a URL,
-      capturar a prova, gerar hash e cadeia de custódia, baixar o laudo e levar o material
-      para advogado, PAP ou consultoria técnica.
-    </p>
-  </div>
-  <img src="/static/passo-a-passo.png" alt="Quadrinho com seis etapas do Seu Custódio preservando prova digital" class="passo-img"/>
+  <p class="hero-ajuda">Não precisa entender de tecnologia. Você informa o link e o sistema organiza a prova.</p>
 </section>
 
 <section class="cards">
   <div class="card">
-    <h3>1. Cole a URL</h3>
-    <p>Informe o link da publicação ou perfil. O servidor acessa de forma independente.</p>
+    <h3>1. Cole o link</h3>
+    <p>Copie a URL da publicação, perfil ou comentário e informe no sistema.</p>
   </div>
   <div class="card">
-    <h3>2. Pague via Pix</h3>
-    <p>R$ {{ valor }} por coleta. A captura só inicia após a confirmação do pagamento.</p>
+    <h3>2. O Custódio captura</h3>
+    <p>O servidor acessa a página e registra o que estiver disponível naquele momento.</p>
   </div>
   <div class="card">
     <h3>3. Baixe o laudo</h3>
-    <p>HTML cru + screenshot + PDF + metadados públicos + hashes + cadeia de custódia + QR.</p>
+    <p>Você recebe um documento com captura, hash, cadeia de custódia e QR de verificação.</p>
   </div>
 </section>
 
