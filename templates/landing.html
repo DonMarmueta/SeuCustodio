@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% block titulo %}Seu Custódio — Prova digital auditável{% endblock %}
 {% block conteudo %}
 <section class="hero">
-  <h1>Transforme um post em <span>prova auditável</span></h1>
+  <img src="/static/logo-oficial.png" alt="Seu Custódio" class="hero-logo"/>
+  <h1>Guarde sua <span>prova digital</span></h1>
   <p class="lead">
     Gere uma captura auditável de uma publicação em rede social por R$ {{ valor }}.
     O sistema preserva a página, captura evidências visuais, extrai metadados públicos
@@ -15,6 +17,18 @@
     <a href="/registro" class="btn">Coletar agora — R$ {{ valor }}</a>
     <a href="/verificar" class="btn-secundario">Verificar uma prova</a>
   </div>
+</section>
+
+<section class="passo-a-passo">
+  <div class="passo-copy">
+    <h2>Como o Seu Custódio age</h2>
+    <p>
+      O fluxo foi pensado para quem precisa agir rápido: identificar o abuso, colar a URL,
+      capturar a prova, gerar hash e cadeia de custódia, baixar o laudo e levar o material
+      para advogado, PAP ou consultoria técnica.
+    </p>
+  </div>
+  <img src="/static/passo-a-passo.png" alt="Quadrinho com seis etapas do Seu Custódio preservando prova digital" class="passo-img"/>
 </section>
 
 <section class="cards">

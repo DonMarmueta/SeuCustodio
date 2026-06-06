@@ -1,1 +1,1 @@
-"""Camada SaaS (API + web) do ProvaSocial-Extract."""
+"""Camada SaaS (API + web) do Seu Custódio."""

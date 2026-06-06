@@ -30,7 +30,9 @@ def _qr_base64(texto: str) -> str | None:
 
 def _logo_base64() -> str | None:
     """Carrega o logo do projeto como data URI para o laudo offline."""
-    caminho = RAIZ / "static" / "if.png"
+    caminho = RAIZ / "static" / "logo-oficial.png"
+    if not caminho.exists():
+        caminho = RAIZ / "static" / "if.png"
     if not caminho.exists():
         return None
     try:
@@ -67,9 +69,9 @@ def gerar(manifesto: dict, cadeia: dict, pasta: Path) -> dict:
     )
     logo = _logo_base64()
     logo_html = (
-        f'<img class="logo-laudo" src="data:image/png;base64,{logo}" alt="CyberMarmouts"/>'
+        f'<img class="logo-laudo" src="data:image/png;base64,{logo}" alt="Seu Custódio"/>'
         if logo
-        else '<div class="logo-fallback">CyberMarmouts</div>'
+        else '<div class="logo-fallback">Seu Custódio</div>'
     )
 
     meta = manifesto.get("metadados", {})
@@ -181,7 +183,7 @@ def gerar(manifesto: dict, cadeia: dict, pasta: Path) -> dict:
   .hash {{ color: #0a6; }}
   .qr {{ width: 130px; height: 130px; }}
   .brand {{ display: flex; gap: 12px; align-items: center; }}
-  .logo-laudo {{ width: 54px; height: 54px; object-fit: contain; }}
+  .logo-laudo {{ width: 150px; height: 58px; object-fit: contain; }}
   .logo-fallback {{ font-weight: 700; color: #0f3460; }}
   .muted {{ color: #888; }}
   .box {{ background: #f9fafc; border: 1px solid #e0e6ef; padding: 12px; border-radius: 6px; }}
@@ -197,7 +199,7 @@ def gerar(manifesto: dict, cadeia: dict, pasta: Path) -> dict:
       {logo_html}
       <div>
         <h1>Laudo de Coleta de Evidência Digital</h1>
-        <p class="sub">ProvaSocial — Extract · CyberMarmouts Inteligência Forense</p>
+        <p class="sub">Seu Custódio · Guarda · Confere · Preserva</p>
       </div>
     </div>
     <div style="text-align:center">
@@ -251,7 +253,8 @@ def gerar(manifesto: dict, cadeia: dict, pasta: Path) -> dict:
 </div>
 
 <footer>
-  Documento gerado automaticamente por ProvaSocial-Extract v{html.escape(manifesto.get("versao",""))}.
+  Documento gerado automaticamente por Seu Custódio v{html.escape(manifesto.get("versao",""))}.
+  Code by Cyber_Marmouts · www.cybermarmouts.com.br.
   A coleta foi realizada de forma independente pelo servidor. Este documento constitui
   prova auditável para fins de Produção Antecipada de Provas (PAP) e pedido de quebra
   de sigilo. Não realiza, por si só, a identificação civil do titular do perfil, que

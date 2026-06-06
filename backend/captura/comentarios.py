@@ -98,7 +98,7 @@ def extrair_comentarios_pagina(
 def comentarios_para_txt(resultado: dict) -> str:
     """Gera versão texto legível dos comentários para leitura rápida/anexo."""
     linhas = [
-        "COMENTÁRIOS COLETADOS - ProvaSocial Extract",
+        "COMENTÁRIOS COLETADOS - Seu Custódio",
         f"Status: {resultado.get('status')}",
         f"Plataforma: {resultado.get('plataforma')}",
         f"URL: {resultado.get('url_origem')}",

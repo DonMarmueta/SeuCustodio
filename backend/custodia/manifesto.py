@@ -37,7 +37,7 @@ def construir(
         encadeado = hashing.encadear(encadeado, art["sha256"])
 
     corpo = {
-        "ferramenta": "ProvaSocial-Extract",
+        "ferramenta": "Seu Custódio",
         "versao": __version__,
         "coleta_id": coleta_id,
         "codigo_verificacao": codigo_verificacao,

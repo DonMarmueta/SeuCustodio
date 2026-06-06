@@ -1,4 +1,4 @@
-# ProvaSocial — Extract
+# Seu Custódio
 
 Ferramenta forense de extração de evidências de redes sociais com cadeia de custódia
 auditável, voltada para formação posterior de **Produção Antecipada de Provas (PAP)** e
@@ -52,7 +52,8 @@ Extract/
 │   └── coletor.py           # orquestrador CLI
 ├── verificar.py             # verificador independente de integridade
 ├── evidencias/              # saída: uma pasta WORM por coleta (gerado em runtime)
-├── static/if.png            # logo usado na interface e no laudo
+├── static/logo-oficial.png  # logo oficial usado na interface e no laudo
+├── static/passo-a-passo.png # quadrinho explicativo da landing page
 ├── requirements.txt
 └── README.md
 ```

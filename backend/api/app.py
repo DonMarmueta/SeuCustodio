@@ -1,4 +1,4 @@
-"""Aplicação FastAPI do ProvaSocial-Extract (camada SaaS, Fase 2).
+"""Aplicação FastAPI do Seu Custódio (camada SaaS).
 
 Sobe com:  uvicorn backend.api.app:app --reload
 """
@@ -37,7 +37,7 @@ RAIZ_API = Path(__file__).resolve().parent
 TEMPLATES_DIR = RAIZ_API.parent.parent / "templates"
 STATIC_DIR = RAIZ_API.parent.parent / "static"
 
-app = FastAPI(title="ProvaSocial — Extract", version="0.2.0")
+app = FastAPI(title="Seu Custódio", version="0.2.0")
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 if STATIC_DIR.exists():
